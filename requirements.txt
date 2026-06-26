@@ -1,1 +1,2 @@
 pip install playwright
+pip install browser_use
