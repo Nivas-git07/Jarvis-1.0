@@ -1,44 +1,27 @@
 import asyncio
-from browser_use import Agent
-from langchain_ollama import ChatOllama
-from pydantic import Field
-
-# 1. Custom class to satisfy the browser-use provider property check
-class BrowserUseOllama(ChatOllama):
-    provider: str = Field(default="ollama")
-    
-    model_config = {
-        "extra": "allow"
-    }
-
-    @property
-    def model_name(self):
-        return self.model
+# IMPORT NOTICE: We pull ChatOllama directly from browser_use, NOT from langchain
+from browser_use import Agent, ChatOllama
 
 async def run_search():
     print("=== JARVIS TEXT-TO-ACTION ENGINE ===")
     
     user_prompt = "go to flipkart.com and search for a watch under 500"
     print(f"\nTask Input: '{user_prompt}'")
+    print("\n[1/2] Loading native browser-use Ollama structure adapter...")
     
-    # 2. Initialize your local model with proper memory configuration
-    llm = BrowserUseOllama(
+    # Using the built-in browser-use wrapper completely cleans up the schema translation layer
+    llm = ChatOllama(
         model="qwen2.5-coder:7b",
-        base_url="http://127.0.0.1:11435",
-        temperature=0.0,
-        num_ctx=32000
+
     )
 
-    print("[1/2] Spawning automated web controller agent...")
-    
-    # 3. Use 'tool_call_in_content=False' to stop structural parser errors
+    print("[2/2] Spawning automated web controller agent...")
     agent = Agent(
         task=user_prompt,
-        llm=llm,
-        tool_call_in_content=False
+        llm=llm
     )
 
-    print("\n[2/2] Executing Action Loop...")
+    print("\n[3/3] Executing Action Loop...")
     try:
         result = await agent.run()
         print("\n=== ACTION COMPLETED BY JARVIS ===")
