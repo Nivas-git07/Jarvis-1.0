@@ -8,8 +8,13 @@ def get_weather(city, date_input=None):
                 Defaults to 'today' if left empty.
     """
     # 1. Normalize textual input keywords into precise date strings
-    if date_input is None:
-        date_input = "today"
+    if isinstance(date_input, int):
+        if date_input == 0:
+            date_input = "today"
+        elif date_input == 1:
+            date_input = "tomorrow"
+        elif date_input == -1:
+            date_input = "yesterday"
         
     date_str = date_input.lower().strip()
     today_dt = datetime.now()
