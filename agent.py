@@ -1,10 +1,13 @@
 from groq import Groq
 from dotenv import load_dotenv
 import os
+from weather import get_weather
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+print(get_weather("Madurai", "yesterday")) 
 
 while True:
     task = input("You : ")
