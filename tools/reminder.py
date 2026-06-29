@@ -11,7 +11,9 @@ def load_reminders():
         return json.load(f)
 
 def save_reminder(title, datetime_str):
+    print("title and datetime",title,datetime_str )
     reminders = load_reminders()
+ 
 
     reminders.append({
         "title": title,

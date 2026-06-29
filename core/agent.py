@@ -67,7 +67,6 @@ Format:
 
             result = reminder_completion.choices[0].message.content
             
-            print("DEBUG:", result)
             
             match = re.search(r"\{.*\}", result, re.DOTALL)
 
@@ -78,6 +77,7 @@ Format:
             result = result.replace("```", "")
 
             data = json.loads(result)
+            
 
             save_reminder(
                 data["title"],
