@@ -1,2 +1,19 @@
-pip install playwright
-pip install browser_use
+# Audio
+numpy
+sounddevice
+soundfile
+
+# STT
+faster-whisper
+ctranslate2
+
+# TTS
+kokoro-onnx
+onnxruntime
+
+# Browser Automation
+playwright
+browser-use
+
+# Utils
+python-dotenv
